@@ -40,8 +40,10 @@
 #ifndef PCL_RECOGNITION_HOUGH_3D_H_
 #define PCL_RECOGNITION_HOUGH_3D_H_
 
-#include <pcl/recognition/cg/correspondence_grouping.h>
-#include <pcl/recognition/boost.h>
+//#include <pcl/recognition/cg/correspondence_grouping.h>
+//#include <pcl/recognition/boost.h>
+#include <3D_object_detection/correspondence_grouping.h>
+#include <3D_object_detection/boost.h>
 #include <pcl/point_types.h>
 
 namespace pcl

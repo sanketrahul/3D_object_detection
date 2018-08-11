@@ -40,9 +40,13 @@
 #ifndef PCL_RECOGNITION_CORRESPONDENCE_GROUPING_H_
 #define PCL_RECOGNITION_CORRESPONDENCE_GROUPING_H_
 
-#include <pcl/pcl_base.h>
-#include <pcl/correspondence.h>
-#include <pcl/console/print.h>
+//#include <pcl/pcl_base.h>
+//#include <pcl/correspondence.h>
+//#include <pcl/console/print.h>
+
+#include <3D_object_detection/pcl_base.h>
+#include <3D_object_detection/correspondence.h>
+#include <3D_object_detection/print.h>
 
 namespace pcl
 {
