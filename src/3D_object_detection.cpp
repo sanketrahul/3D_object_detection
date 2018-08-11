@@ -13,7 +13,11 @@
 #include <pcl/features/normal_3d_omp.h>
 #include <pcl/features/shot_omp.h>
 #include <pcl/features/board.h>
+#if ( PCL_MAJOR_VERSION == 1 && PCL_MINOR_VERSION == 7)
+#include <pcl/keypoints/uniform_sampling.h>
+#elif ( PCL_MAJOR_VERSION == 1 && PCL_MINOR_VERSION == 8)
 #include <pcl/filters/uniform_sampling.h>
+#endif
 
 //#include <pcl/recognition/cg/hough_3d.h>
 //#include <pcl/recognition/cg/geometric_consistency.h>
@@ -71,6 +75,9 @@ void cloud_cb (const sensor_msgs::PointCloud2ConstPtr& cloud_msg)
    
     //3D object detection core code
     pcl::PointCloud<PointType>::Ptr model (new pcl::PointCloud<PointType> ());
+#if ( PCL_MAJOR_VERSION == 1 && PCL_MINOR_VERSION == 7)
+    pcl::PointCloud<int>::Ptr model_indices (new pcl::PointCloud<int> ());
+#endif
     pcl::PointCloud<PointType>::Ptr model_keypoints (new pcl::PointCloud<PointType> ());
     pcl::PointCloud<PointType>::Ptr scene (new pcl::PointCloud<PointType> ());
     pcl::PointCloud<PointType>::Ptr scene_keypoints (new pcl::PointCloud<PointType> ());
@@ -111,12 +118,22 @@ void cloud_cb (const sensor_msgs::PointCloud2ConstPtr& cloud_msg)
    pcl::UniformSampling<PointType> uniform_sampling;
    uniform_sampling.setInputCloud (model);
    uniform_sampling.setRadiusSearch (model_ss_);
+#if ( PCL_MAJOR_VERSION == 1 && PCL_MINOR_VERSION == 7)
+    uniform_sampling.compute(*model_indices);
+    // FIX ME : need to add code to compute model_keypoints from model_indices
+#elif ( PCL_MAJOR_VERSION == 1 && PCL_MINOR_VERSION == 8)
    uniform_sampling.filter (*model_keypoints);
+#endif
    std::cout << "Model total points: " << model->size () << "; Selected Keypoints: " << model_keypoints->size () << std::endl;
 
    uniform_sampling.setInputCloud (scene);
    uniform_sampling.setRadiusSearch (scene_ss_);
+#if ( PCL_MAJOR_VERSION == 1 && PCL_MINOR_VERSION == 7)
+    uniform_sampling.compute(*model_indices);
+    // FIX ME : need to add code to compute model_keypoints from model_indices
+#elif ( PCL_MAJOR_VERSION == 1 && PCL_MINOR_VERSION == 8)
    uniform_sampling.filter (*scene_keypoints);
+#endif
    std::cout << "Scene total points: " << scene->size () << "; Selected Keypoints: " << scene_keypoints->size () << std::endl;
 
 
