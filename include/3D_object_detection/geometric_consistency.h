@@ -41,6 +41,7 @@
 #define PCL_RECOGNITION_GEOMETRIC_CONSISTENCY_H_
 
 //#include <pcl/recognition/cg/correspondence_grouping.h>
+
 #include <3D_object_detection/correspondence_grouping.h>
 #include <pcl/point_cloud.h>
 
