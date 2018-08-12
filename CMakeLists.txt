@@ -136,7 +136,7 @@ include_directories(
 ## The recommended prefix ensures that target names across packages don't collide
 # add_executable(${PROJECT_NAME}_node src/3D_object_detection_node.cpp)
 add_executable(3D_object_detection src/3D_object_detection.cpp)
-target_link_libraries(3D_object_detection ${catkin_LIBRARIES})
+target_link_libraries(3D_object_detection ${catkin_LIBRARIES} libpcl_recognition.so libpcl_keypoints.so )
 
 ## Rename C++ executable without prefix
 ## The above recommended prefix causes long target names, the following renames the
