@@ -19,10 +19,10 @@
 #include <pcl/filters/uniform_sampling.h>
 #endif
 
-//#include <pcl/recognition/cg/hough_3d.h>
-//#include <pcl/recognition/cg/geometric_consistency.h>
-#include "3D_object_detection/hough_3d.h"
-#include "3D_object_detection/geometric_consistency.h"
+#include <pcl/recognition/cg/hough_3d.h>
+#include <pcl/recognition/cg/geometric_consistency.h>
+//#include "3D_object_detection/hough_3d.h"
+//#include "3D_object_detection/geometric_consistency.h"
 //#include "pcl/hough_3d.h"
 //#include "pcl/geometric_consistency.h"
 
