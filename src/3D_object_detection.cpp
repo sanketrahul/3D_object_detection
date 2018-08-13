@@ -15,16 +15,14 @@
 #include <pcl/features/board.h>
 #if ( PCL_MAJOR_VERSION == 1 && PCL_MINOR_VERSION == 7)
 #include <pcl/keypoints/uniform_sampling.h>
+
 #elif ( PCL_MAJOR_VERSION == 1 && PCL_MINOR_VERSION == 8)
 #include <pcl/filters/uniform_sampling.h>
 #endif
 
 #include <pcl/recognition/cg/hough_3d.h>
 #include <pcl/recognition/cg/geometric_consistency.h>
-//#include "3D_object_detection/hough_3d.h"
-//#include "3D_object_detection/geometric_consistency.h"
-//#include "pcl/hough_3d.h"
-//#include "pcl/geometric_consistency.h"
+
 
 #include <pcl/visualization/pcl_visualizer.h>
 #include <pcl/kdtree/kdtree_flann.h>
@@ -44,6 +42,8 @@ std::string model_filename_ = "milk.pcd";
 std::string scene_filename_ = "milk_cartoon_all_small_clorox.pcd";
 
 
+
+
 //initialization of all variables used for correspondence grouping
 //Algorithm params
 bool show_keypoints_ (false);
@@ -56,8 +56,6 @@ float rf_rad_ (0.015f);
 float descr_rad_ (0.02f);
 float cg_size_ (0.01f);
 float cg_thresh_ (5.0f);
-//model_filename_ = "milk.pcd";
-//scene_filename_ = "milk_cartoon_all_small_clorox.pcd";
  
 void cloud_cb (const sensor_msgs::PointCloud2ConstPtr& cloud_msg)
 {
@@ -72,11 +70,13 @@ void cloud_cb (const sensor_msgs::PointCloud2ConstPtr& cloud_msg)
    // Convert to PCL data type
    //pcl_conversions::toPCL(*cloud_msg, *cloud);
  
-   
     //3D object detection core code
     pcl::PointCloud<PointType>::Ptr model (new pcl::PointCloud<PointType> ());
 #if ( PCL_MAJOR_VERSION == 1 && PCL_MINOR_VERSION == 7)
     pcl::PointCloud<int>::Ptr model_indices (new pcl::PointCloud<int> ());
+    pcl::PointCloud<int>::Ptr scene_indices (new pcl::PointCloud<int> ());
+    //pcl::PointCloud<pcl::PointXYZ>::Ptr model_keypoints (new pcl::PointCloud<pcl::PointXYZ> ());
+    //pcl::PointCloud<pcl::PointXYZ>::Ptr scene_keypoints (new pcl::PointCloud<pcl::PointXYZ> ());
 #endif
     pcl::PointCloud<PointType>::Ptr model_keypoints (new pcl::PointCloud<PointType> ());
     pcl::PointCloud<PointType>::Ptr scene (new pcl::PointCloud<PointType> ());
@@ -115,11 +115,13 @@ void cloud_cb (const sensor_msgs::PointCloud2ConstPtr& cloud_msg)
    //  Downsample Clouds to Extract keypoints
    //
 
-   pcl::UniformSampling<PointType> uniform_sampling;
+//   pcl::UniformSampling<PointType> uniform_sampling;
+   my_keypoint uniform_sampling;
    uniform_sampling.setInputCloud (model);
    uniform_sampling.setRadiusSearch (model_ss_);
 #if ( PCL_MAJOR_VERSION == 1 && PCL_MINOR_VERSION == 7)
     uniform_sampling.compute(*model_indices);
+    uniform_sampling.detectKeypoints(*model_keypoints);
     // FIX ME : need to add code to compute model_keypoints from model_indices
 #elif ( PCL_MAJOR_VERSION == 1 && PCL_MINOR_VERSION == 8)
    uniform_sampling.filter (*model_keypoints);
@@ -129,10 +131,12 @@ void cloud_cb (const sensor_msgs::PointCloud2ConstPtr& cloud_msg)
    uniform_sampling.setInputCloud (scene);
    uniform_sampling.setRadiusSearch (scene_ss_);
 #if ( PCL_MAJOR_VERSION == 1 && PCL_MINOR_VERSION == 7)
-    uniform_sampling.compute(*model_indices);
+    uniform_sampling.compute(*scene_indices);
+    uniform_sampling.detectKeypoints(*scene_keypoints, model);
     // FIX ME : need to add code to compute model_keypoints from model_indices
 #elif ( PCL_MAJOR_VERSION == 1 && PCL_MINOR_VERSION == 8)
    uniform_sampling.filter (*scene_keypoints);
+   
 #endif
    std::cout << "Scene total points: " << scene->size () << "; Selected Keypoints: " << scene_keypoints->size () << std::endl;
 
@@ -272,6 +276,8 @@ void cloud_cb (const sensor_msgs::PointCloud2ConstPtr& cloud_msg)
    //pub.publish (output);
 }
  
+
+
 int main (int argc, char** argv)
 {
    // Initialize ROS
