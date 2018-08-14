@@ -39,4 +39,4 @@ It should output of the model and scene correspondence text output as:
 
 Note: The code also contains PCL 1.7.2 code also. It is still under progress.
 
-Credits: This work has been carried out for Google Summer of Code 2018 under mentorship of Prof. Kei Okada (@k-okada)
+Credits: This work has been carried out for Google Summer of Code 2018 under the mentorship of Prof. Kei Okada (@k-okada)
