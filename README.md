@@ -15,8 +15,11 @@ Similar work to step 1 and 3 has been done in euclidean clustering integration c
 Later, we will integrate step 1 and 3. Also, we will create the 3D object detection as a nodelet to be integrated with jsk_pcl_ros.
 
 Dependencies:
+
 PCL 1.8.1
+
 ROS Kinetic 
+
 Ubuntu
 
 Running of Code:
