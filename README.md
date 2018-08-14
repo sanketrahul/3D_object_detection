@@ -16,7 +16,7 @@ Later, we will integrate step 1 and 3. Also, we will create the 3D object detect
 
 Dependencies:
 
-PCL 1.8.1
+PCL 1.8.1 (Must and should have any trace of PCL 1.7 in you workstation)
 
 ROS Kinetic 
 
@@ -34,6 +34,9 @@ Further, run command: roslaunch openni_launch openni.launch
 
 Then on new terminal run command: rosrun 3D_object_detection 3D_object_detection input:=/camera/depth/points
 
-It should output of the model and scene correspondence.
+It should output of the model and scene correspondence text output as:
+![3D_object_detection_output](https://github.com/sanketrahul/3D_object_detection/blob/master/image/3D_object_detection_success.png)
+
+Note: The code also contains PCL 1.7.2 code also. It is still under progress.
 
 Credits: This work has been carried out for Google Summer of Code 2018 under mentorship of Prof. Kei Okada (@k-okada)
