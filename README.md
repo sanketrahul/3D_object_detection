@@ -14,4 +14,23 @@ Similar work to step 1 and 3 has been done in euclidean clustering integration c
 
 Later, we will integrate step 1 and 3. Also, we will create the 3D object detection as a nodelet to be integrated with jsk_pcl_ros.
 
+Dependencies:
+PCL 1.8.1
+ROS Kinetic 
+Ubuntu
+
+Running of Code:
+
+First, git clone this code in you ros workstation.
+
+Then run catkin build to run the code.
+
+Also, download sample model(milk.pcd) and scene(milk_cartoon_all_small_clorox.pcd) pcd files from http://www.pointclouds.org/documentation/tutorials/correspondence_grouping.php#correspondence-grouping. Save these file at ros workstation. 
+
+Further, run command: roslaunch openni_launch openni.launch
+
+Then on new terminal run command: rosrun 3D_object_detection 3D_object_detection input:=/camera/depth/points
+
+It should output of the model and scene correspondence.
+
 Credits: This work has been carried out for Google Summer of Code 2018 under mentorship of Prof. Kei Okada (@k-okada)
